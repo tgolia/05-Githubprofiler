@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Profiler</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid" ng-controller="GithubController as home">
+    	<div class="well well-lg" style="margin-top: 20px;">
+    		<h1 class="text-center">GitHub Profiler</h1>
+       		<h3 class="text-center"><i>Creep on a GitHub user of your choice ( ͡° ͜ʖ ͡°)</i></h3>
+    	</div>
+    	<div class="input-group">
+  			<input type="text" class="form-control" placeholder="Recipient's GitHub username" aria-describedby="basic-addon2">
+  			<span class="input-group-addon" id="basic-addon2" ng-click"">Creep!</span>
+		</div>
+		<hr size=5>
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-md-3 text-center" style="margin-bottom: 10px;">
+				<img class="img-responsive img-circle" src="img/monkey.jpg" alt="">
+				<hr size=5>
+				<p><b>Monkey Guy</b> bananas420</p> <!--Full name and username-->
+				<p>Africa, Earth</p> <!--City and Sate-->
+				<p class="text-danger">Not looking for work</p> <!--Contextual colored text based on whether looking for work or not-->
+				<p>Slinging feces since Pangea</p> <!--When was profile created-->
+			</div>
+  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  				<h5>Followers</h5>
+  				<p>25</p>
+  			</div>
+  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  				<h5>Following</h5>
+  				<p>25</p>
+  			</div>
+  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  				<h5>Public Repositories</h5>
+  				<p>25</p>
+  			</div>
+		</div>
+	</div>
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- SHORTCUT: script:src -->
+    <script src="app/app.module.js"></script>
+    <script src="app/home/home.controller.js"></script>
+</body>
+
+</html>
