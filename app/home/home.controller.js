@@ -8,20 +8,82 @@
     GithubController.$inject = ['$http'];
 
     function GithubController($http) {
+        var vm = this;
+
         vm.callGithubApi = callGithubApi;
-    }
+        vm.getUserRepos = getUserRepos;
 
-    /////////////////////////
+        vm.repos=[];
+        vm.username='';
+        vm.repoButton='View Repositories';
 
-    /* @ngInject */
-    function callGithubApi() {
-        $http
-        .get('http://api.github.com/users/cameronoca')
-        .then(function(response) {
-        	vm.cameron = response.data;
-        })
-        .catch(function(error) {
-        	alert('An error occured downloading Cameron from GitHub');
-        });
+        vm.hideOrShowReposTable = function() {
+            if (vm.repoButton === 'View Repositories') {
+                vm.repoButton = 'Hide Repositories';
+                document.getElementById('table').style.visibility='visible';
+            } else {
+                vm.repoButton = 'View Repositories';
+                document.getElementById('table').style.visibility='hidden';
+            }
+        }
+
+        vm.hideReposTable = function() {
+            vm.repoButton = 'View Repositories';
+            document.getElementById('table').style.visibility='hidden';
+        }
+
+        vm.isHireableOrNot = function() {
+            if (vm.user.hireable == null) {
+                vm.user.hireable = 'Not looking for work';
+                vm.hireableColor = 'text-danger';
+            } else {
+                vm.user.hireable = 'Looking for work!';
+                vm.hireableColor = 'text-success';
+            }
+        }
+        vm.checkForRepoDescription = function() {
+            for (var i=0;i<vm.repos.length;i++) {
+                if (vm.repos[i].description == null) {
+                    vm.repos[i].description = 'No description provided';
+                }
+            }
+        }
+
+        vm.showUserDetails = function() {
+            document.getElementById('details').style.visibility='visible';
+        }
+
+        /////////////////////////
+
+        /* @ngInject */
+        function callGithubApi(username) {
+            $http
+            .get('http://api.github.com/users/'+username+'?access_token=9da43609141c35bd8a1aa49b9128d99cbad2b70a')
+            .then(function(response) {
+            	vm.user = response.data;
+                console.log(vm.user);
+                vm.isHireableOrNot();
+                vm.showUserDetails();
+                vm.username = username;
+                vm.hideReposTable();
+            })
+            .catch(function(error) {
+            	alert('An error occured downloading '+username+' from GitHub');
+            });
+        }
+        
+        function getUserRepos(username) {
+             $http
+            .get('http://api.github.com/users/'+username+'/repos?access_token=9da43609141c35bd8a1aa49b9128d99cbad2b70a')
+            .then(function(response) {
+                vm.repos = response.data;
+                vm.hideOrShowReposTable();
+                vm.checkForRepoDescription();
+                console.log(vm.repos);
+            })
+            .catch(function(error) {
+                alert('An error occured downloading '+username+' from GitHub'); //TODO: provide specific error message based on code
+            });
+        }
     }
 })();

@@ -17,31 +17,54 @@
        		<h3 class="text-center"><i>Creep on a GitHub user of your choice ( ͡° ͜ʖ ͡°)</i></h3>
     	</div>
     	<div class="input-group">
-  			<input type="text" class="form-control" placeholder="Recipient's GitHub username" aria-describedby="basic-addon2">
-  			<span class="input-group-addon" id="basic-addon2" ng-click"">Creep!</span>
+  			<input type="text" class="form-control" placeholder="Recipient's GitHub username" aria-describedby="basic-addon2" ng-model="home.username">
+  			<span class="input-group-addon">
+            	<button ng-click="home.callGithubApi(home.username)">Creep!</button>
+  			</span>
 		</div>
 		<hr size=5>
-		<div class="row" style="margin-top: 10px;">
+		<div class="row text-center" id="details" style="margin-top: 10px; visibility: hidden;">
 			<div class="col-md-3 text-center" style="margin-bottom: 10px;">
-				<img class="img-responsive img-circle" src="img/monkey.jpg" alt="">
+				<a ng-href={{home.user.html_url}}>
+					<img class="img-responsive img-circle" ng-src={{home.user.avatar_url}} alt="Description">
+				</a>
 				<hr size=5>
-				<p><b>Monkey Guy</b> bananas420</p> <!--Full name and username-->
-				<p>Africa, Earth</p> <!--City and Sate-->
-				<p class="text-danger">Not looking for work</p> <!--Contextual colored text based on whether looking for work or not-->
-				<p>Slinging feces since Pangea</p> <!--When was profile created-->
+				<a ng-href={{home.user.html_url}}>
+					<p><b>{{home.user.name}}</b> {{home.user.login}}</p> 
+				</a>
+				<p>{{home.user.location}}</p> 
+				<p ng-class=home.hireableColor>{{home.user.hireable}}</p> 
+				<p>Slinging feces since {{home.user.created_at | date:'MMM d, y'}}</p> 
 			</div>
-  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  			<div class="well col-md-2" style="margin-left: 40px;">
   				<h5>Followers</h5>
-  				<p>25</p>
+  				<p>{{home.user.followers}}</p>
+  				<!--<button>View Followers</button>-->
   			</div>
-  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  			<div class="well col-md-2" style="margin-left: 40px;">
   				<h5>Following</h5>
-  				<p>25</p>
+  				<p>{{home.user.following}}</p>
+  				<!--<button>View Following</button>-->
   			</div>
-  			<div class="well text-center col-md-2" style="margin-left: 20px;">
+  			<div class="well col-md-2" style="margin-left: 40px;">
   				<h5>Public Repositories</h5>
-  				<p>25</p>
+  				<p>{{home.user.public_repos}}</p>
+  				<button ng-click="home.getUserRepos(home.username)">{{home.repoButton}}</button>
   			</div>
+			<div class="well col-md-8" id='table' style="visibility: hidden;">
+  				<table class="table" style="margin-left: 10px;">
+					<tr>
+						<th style="text-align: center;">Name</th>
+						<th style="text-align: center;">Description</th>
+						<th style="text-align: center;">URL</th>
+					</tr>
+					<tr ng-repeat="repo in home.repos">
+						<td>{{repo.name}}</td>
+						<td><i>{{repo.description}}</i></td>
+						<td>{{repo.html_url}}</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
     <!-- jQuery -->
