@@ -58,10 +58,10 @@
         /* @ngInject */
         function callGithubApi(username) {
             $http
-            .get('http://api.github.com/users/'+username+'?access_token=9da43609141c35bd8a1aa49b9128d99cbad2b70a')
+            .get('http://api.github.com/users/'+username+'?access_token=0cd910c1c4cc6acf2244aed5ab1ccb3ad206203e')
             .then(function(response) {
             	vm.user = response.data;
-                console.log(vm.user);
+                console.log(response);
                 vm.isHireableOrNot();
                 vm.showUserDetails();
                 vm.username = username;
@@ -74,12 +74,11 @@
         
         function getUserRepos(username) {
              $http
-            .get('http://api.github.com/users/'+username+'/repos?access_token=9da43609141c35bd8a1aa49b9128d99cbad2b70a')
+            .get('http://api.github.com/users/'+username+'/repos?access_token=0cd910c1c4cc6acf2244aed5ab1ccb3ad206203e')
             .then(function(response) {
                 vm.repos = response.data;
                 vm.hideOrShowReposTable();
                 vm.checkForRepoDescription();
-                console.log(vm.repos);
             })
             .catch(function(error) {
                 alert('An error occured downloading '+username+' from GitHub'); //TODO: provide specific error message based on code
